@@ -22,10 +22,7 @@ func byNameKey(name string) string {
 }
 
 func byAttrKey(atype AttrType, vid VendorID, vtype VendorType) uint64 {
-	if atype != AttrVSA {
-		return uint64(atype)
-	}
-	return (uint64(vid) << 16) | (uint64(vtype) << 8) | uint64(AttrVSA)
+	return (uint64(vid) << 16) | (uint64(vtype) << 8) | uint64(atype)
 }
 
 // Put attrs in dictionary

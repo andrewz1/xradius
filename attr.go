@@ -20,21 +20,29 @@ const (
 type AttrDType int
 
 const (
-	DTypeRaw    AttrDType = iota // byte slice
-	DTypeString                  // string
-	DTypeIP4                     // ip addr
-	DTypeIP4Pfx                  // 6 bytes
-	DTypeInt                     // uint32
-	DTypeInt64                   // uint64
-	DTypeDate                    // unix time 32 bit
-	DTypeIfID                    // 8 bytes
-	DTypeIP6                     // 16 bytes
-	DTypeIP6Pfx                  // 18 bytes
-	DTypeByte                    // one byte
-	DTypeEth                     // 6 bytes, MAC
-	DTypeShort                   // uint16
-	DTypeSInt                    // signed int
-	DTypeVSA                     // VSA
+	DTypeRaw     AttrDType = iota // []byte any unknown attr
+	DTypeInt                      // uint32 rfc8044 tag 1
+	DTypeEnum                     // uint32 rfc8044 tag 2
+	DTypeTime                     // uint32 rfc8044 tag 3
+	DTypeText                     // []byte rfc8044 tag 4
+	DTypeString                   // []byte rfc8044 tag 5
+	DTypeConcat                   // []byte rfc8044 tag 6
+	DTypeIfID                     // [8]byte rfc8044 tag 7
+	DTypeIP4                      // [4]byte rfc8044 tag 8
+	DTypeIP6                      // [16]byte rfc8044 tag 9
+	DTypeIP6Pfx                   // [18]byte rfc8044 tag 10
+	DTypeIP4Pfx                   // [6]byte rfc8044 tag 11
+	DTypeInt64                    // uint64 rfc8044 tag 12
+	DTypeTLV                      // []byte rfc8044 tag 13
+	DTypeVSA                      // []byte rfc8044 tag 14
+	DTypeEXT                      // []byte rfc8044 tag 15
+	DTypeLongEXT                  // []byte rfc8044 tag 16
+	DTypeEVS                      // []byte rfc8044 tag 17
+	DTypeIP                       // []byte ip4 or ip6 addr (len depend)
+	DTypeByte                     // byte
+	DTypeEth                      // [6]byte MAC
+	DTypeShort                    // uint16
+	DTypeSInt                     // int32
 )
 
 type Attr struct {
