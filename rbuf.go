@@ -38,6 +38,9 @@ func rbGet(src []byte) (rb *rBuf) {
 }
 
 func rbPut(rb *rBuf) {
+	if rb == nil {
+		return
+	}
 	rb.bb = rb.bb[:0]
 	rb.bp = 0
 	rb.bl = 0

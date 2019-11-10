@@ -51,6 +51,16 @@ type Packet struct {
 	reply  bool        // Is this reply
 }
 
+func FreePacket(pkt *Packet) {
+	if pkt == nil {
+		return
+	}
+	for _, a := range pkt.attrs { // remove cross ref
+		a.pkt = nil
+	}
+	rbPut(pkt.data)
+}
+
 func ParsePacket(buf []byte) (pkt *Packet, err error) {
 	if len(buf) < PacketMinLen {
 		err = errors.New("Packet too short")
@@ -67,10 +77,8 @@ func ParsePacket(buf []byte) (pkt *Packet, err error) {
 	}
 	defer func() {
 		if err != nil {
-			for _, a := range pkt.attrs { // remove cross ref
-				a.pkt = nil
-			}
-			rbPut(pkt.data)
+			FreePacket(pkt)
+			pkt = nil
 		}
 	}()
 	v, _ := pkt.data.getByte()
